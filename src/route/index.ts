@@ -1,12 +1,12 @@
 import { RouteConfig } from 'react-router-config';
 
-import App from '../App';
+import Home from '../outter-page/home';
 import UserList from '../page/user-list';
 
 const config: RouteConfig[] = [
   {
     path: '/',
-    component: App,
+    component: Home,
     routes: [
       // {
       //   path: '/',

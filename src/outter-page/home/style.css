@@ -1,0 +1,14 @@
+.home-sider {
+  width: 300px;
+  height: '100vh';
+}
+
+.home-content-box {
+  width: 100%;
+}
+
+.home-content {
+  margin: 20px;
+  background: #fff;
+  padding: 20px;
+}
