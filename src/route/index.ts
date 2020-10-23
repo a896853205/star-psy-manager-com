@@ -1,8 +1,7 @@
 import { RouteConfig } from 'react-router-config';
 
 import App from '../App';
-import ComponentsWelcome from '../page/Components/Welcome';
-import HooksWelcome from '../page/Hooks/Welcome';
+import UserList from '../page/user-list';
 
 const config: RouteConfig[] = [
   {
@@ -15,13 +14,8 @@ const config: RouteConfig[] = [
       //   exact: true,
       // },
       {
-        path: '/componentsWelcome',
-        component: ComponentsWelcome,
-        exact: true,
-      },
-      {
-        path: '/hooksWelcome',
-        component: HooksWelcome,
+        path: '/userList',
+        component: UserList,
         exact: true,
       },
     ],

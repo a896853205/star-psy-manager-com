@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 
 import AntdRouterMenu, {
@@ -24,16 +24,16 @@ export default (props: RouteConfigComponentProps) => {
         }}>
         <AntdRouterMenu
           menuData={[
-            new MenuItemGroup('Components', [
+            new MenuItemGroup('user-list', [
               {
-                url: '/componentsWelcome',
-                name: '目录',
+                url: '/userList',
+                name: '用户列表',
               },
             ]),
-            new MenuItemGroup('Hooks', [
+            new MenuItemGroup('create-user', [
               {
-                url: '/hooksWelcome',
-                name: '目录',
+                url: '/createUser',
+                name: '创建用户',
               },
             ]),
             new MenuItem('/other', '其他'),
@@ -41,7 +41,9 @@ export default (props: RouteConfigComponentProps) => {
         />
       </Sider>
       <div className='content-box'>
-        <Content className='content'>{renderRoutes(route?.routes)}</Content>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content className='content'>{renderRoutes(route?.routes)}</Content>
+        </Suspense>
         <Footer>code@Eric design@Luna</Footer>
       </div>
     </Layout>
