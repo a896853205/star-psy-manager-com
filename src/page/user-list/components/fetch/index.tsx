@@ -2,30 +2,34 @@ import React from 'react';
 
 import { useAntdTable } from 'ahooks';
 import { PaginatedParams } from 'ahooks/lib/useAntdTable';
+import axios from 'axios';
 
 import Show from '../show';
+import * as APIS from '../../../../constants/api-constants';
 
 interface Result {
   total: number;
   list: UserList.Item[];
 }
 
-const getTableData = (
-  { current, pageSize }: PaginatedParams[0],
-  formData: Object
-): Promise<Result> => {
-  let query = `page=${current}&size=${pageSize}`;
-  Object.entries(formData).forEach(([key, value]) => {
-    if (value) {
-      query += `&${key}=${value}`;
-    }
-  });
-
-  return fetch(`https://randomuser.me/api?results=55&${query}`)
-    .then(res => res.json())
+/**
+ * useAntdTable回调函数
+ * @param param0 当前组件page选项
+ */
+const getTableData = ({
+  current,
+  pageSize,
+}: PaginatedParams[0]): Promise<Result> => {
+  return axios
+    .get(APIS.GET_LIST, {
+      params: {
+        page: current,
+        pageSize,
+      },
+    })
     .then(res => ({
-      total: res.info.results,
-      list: res.results,
+      total: res.data.count,
+      list: res.data.rows,
     }));
 };
 

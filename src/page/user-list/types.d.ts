@@ -3,9 +3,9 @@ declare namespace UserList {
    * 表格数据
    */
   interface Item {
-    name: {
-      last: string;
-    };
+    uuid: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
     gender: 'male' | 'female';

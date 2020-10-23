@@ -1,30 +1,22 @@
 import React from 'react';
 
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
 import { PaginatedResult } from 'ahooks/lib/useAntdTable';
-
-const COLUMNS = [
-  {
-    title: 'name',
-    dataIndex: 'name.last',
-  },
-  {
-    title: 'email',
-    dataIndex: 'email',
-  },
-  {
-    title: 'phone',
-    dataIndex: 'phone',
-  },
-  {
-    title: 'gender',
-    dataIndex: 'gender',
-  },
-];
+import Column from 'antd/lib/table/Column';
 
 interface Props {
   tableProps: PaginatedResult<UserList.Item>['tableProps'];
 }
-export default ({ tableProps }: Props) => {
-  return <Table columns={COLUMNS} rowKey='email' {...tableProps} />;
-};
+
+export default ({ tableProps }: Props) => (
+  <Table rowKey={record => record.uuid} {...tableProps}>
+    <Column
+      title='Name'
+      render={(_text: any, record: UserList.Item) => {
+        return <Tag>{record.firstName} {record.lastName}</Tag>;
+      }}
+    />
+    <Column title='Email' dataIndex='email' />
+    <Column title='Phone' dataIndex='phone' />
+  </Table>
+);
