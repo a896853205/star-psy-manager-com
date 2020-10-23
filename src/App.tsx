@@ -1,13 +1,15 @@
 import React, { Suspense } from 'react';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 
+import { Layout } from 'antd';
+
+import './App.css';
+import 'antd/dist/antd.css';
 import AntdRouterMenu, {
   MenuItem,
   MenuItemGroup,
 } from './components/Antd-router-menu/Antd-router-menu';
-import { Layout } from 'antd';
-import './App.css';
-import 'antd/dist/antd.css';
+import PageLoading from './components/page-loading';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -41,7 +43,7 @@ export default (props: RouteConfigComponentProps) => {
         />
       </Sider>
       <div className='content-box'>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<PageLoading />}>
           <Content className='content'>{renderRoutes(route?.routes)}</Content>
         </Suspense>
         <Footer>code@Eric design@Luna</Footer>

@@ -5,18 +5,9 @@ import { PaginatedParams } from 'ahooks/lib/useAntdTable';
 
 import Show from '../show';
 
-interface Item {
-  name: {
-    last: string;
-  };
-  email: string;
-  phone: string;
-  gender: 'male' | 'female';
-}
-
 interface Result {
   total: number;
-  list: Item[];
+  list: UserList.Item[];
 }
 
 const getTableData = (
