@@ -5,7 +5,7 @@ import { PaginatedParams } from 'ahooks/lib/useAntdTable';
 import axios from 'axios';
 
 import Show from '../show';
-import * as APIS from '../../../../constants/api-constants';
+import * as APIS from 'src/constants/api-constants';
 
 interface Result {
   total: number;
