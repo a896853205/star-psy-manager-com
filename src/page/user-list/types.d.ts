@@ -10,4 +10,12 @@ declare namespace UserList {
     phone: string;
     gender: 'male' | 'female';
   }
+  
+  /**
+   * antd表格结构
+   */
+  interface Result {
+    total: number;
+    list: UserList.Item[];
+  }
 }

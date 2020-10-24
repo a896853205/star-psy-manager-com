@@ -7,11 +7,6 @@ import axios from 'axios';
 import Show from '../show';
 import * as APIS from 'src/constants/api-constants';
 
-interface Result {
-  total: number;
-  list: UserList.Item[];
-}
-
 /**
  * useAntdTable回调函数
  * @param param0 当前组件page选项
@@ -19,7 +14,7 @@ interface Result {
 const getTableData = ({
   current,
   pageSize,
-}: PaginatedParams[0]): Promise<Result> => {
+}: PaginatedParams[0]): Promise<UserList.Result> => {
   return axios
     .get(APIS.GET_LIST, {
       params: {
