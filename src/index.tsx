@@ -3,15 +3,47 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
-import routes from './route';
-import './index.css';
-import * as serviceWorker from './serviceWorker';
-import { ErrorBoundary } from './components/Error-boundary/Error-boundary';
+// 全局配置hooks
+import { UseRequestProvider } from 'ahooks';
+import axios from 'axios';
+
+import { requestLog, responseLog } from './util/axios-interceptors';
 import * as APIS from './constants/api-constants';
+import { ErrorBoundary } from './components/Error-boundary/Error-boundary';
+import './index.css';
+import routes from './route';
+import * as serviceWorker from './serviceWorker';
+
+// request拦截器
+axios.interceptors.request.use(
+  config => {
+    requestLog(config);
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+// response拦截器
+axios.interceptors.response.use(
+  response => {
+    responseLog(response);
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 ReactDOM.render(
   <ErrorBoundary errorUrl={APIS.ERROR_LOG} nodeEnv={process.env.NODE_ENV}>
-    <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+    <UseRequestProvider
+      value={{
+        requestMethod: param => axios(param),
+      }}>
+      <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+    </UseRequestProvider>
   </ErrorBoundary>,
   document.getElementById('root')
 );

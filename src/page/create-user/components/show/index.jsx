@@ -1,6 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { Form, Input, InputNumber, Button } from 'antd';
+import { useRequest, useUnmount } from 'ahooks';
+import { Form, Input, InputNumber, Button, message } from 'antd';
+
+import * as APIS from 'src/constants/api-constants';
 
 const layout = {
   labelCol: { span: 8 },
@@ -23,12 +26,36 @@ const validateMessages = {
 };
 
 export default () => {
-  const onFinish = useCallback(values => {
-    console.log(values);
-  }, []);
+  let { loading, data, run, cancel } = useRequest(
+    data => {
+      let { user } = data;
+      return {
+        url: APIS.CREATE_USER,
+        method: 'POST',
+        data: { ...user },
+      };
+    },
+    {
+      manual: true,
+      onSuccess: result => {
+        message.success('用户创建成功');
+      },
+      onError: error => {
+        message.error('用户创建失败, 请稍后再试');
+      },
+    }
+  );
 
+  useUnmount(() => {
+    cancel();
+  });
+
+  console.log(data);
   return (
-    <Form {...layout} onFinish={onFinish} validateMessages={validateMessages}>
+    <Form
+      {...layout}
+      onFinish={values => run(values)}
+      validateMessages={validateMessages}>
       <Form.Item
         name={['user', 'name']}
         label='Name'
@@ -48,7 +75,7 @@ export default () => {
         <InputNumber />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type='primary' htmlType='submit'>
+        <Button loading={loading} type='primary' htmlType='submit'>
           Submit
         </Button>
       </Form.Item>

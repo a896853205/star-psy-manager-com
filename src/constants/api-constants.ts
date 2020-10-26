@@ -9,3 +9,8 @@ export const ERROR_LOG = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_SYS}/err
  * 用户列表查询
  */
 export const GET_LIST = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_USER}/list`
+
+/**
+ * 用户增加
+ */
+export const CREATE_USER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_USER}`
