@@ -19,6 +19,14 @@ const validateMessages = {
     // eslint-disable-next-line no-template-curly-in-string
     number: '${label} is not a validate number!',
   },
+  string: {
+    // eslint-disable-next-line no-template-curly-in-string
+    range: '${label} must be between ${min} and ${max}',
+  },
+  email: {
+    // eslint-disable-next-line no-template-curly-in-string
+    range: '${label} must be between ${min} and ${max}',
+  },
   number: {
     // eslint-disable-next-line no-template-curly-in-string
     range: '${label} must be between ${min} and ${max}',
@@ -26,7 +34,7 @@ const validateMessages = {
 };
 
 export default () => {
-  let { loading, data, run, cancel } = useRequest(
+  let { loading, run, cancel } = useRequest(
     data => {
       let { user } = data;
       return {
@@ -37,10 +45,10 @@ export default () => {
     },
     {
       manual: true,
-      onSuccess: result => {
+      onSuccess: _result => {
         message.success('用户创建成功');
       },
-      onError: error => {
+      onError: _error => {
         message.error('用户创建失败, 请稍后再试');
       },
     }
@@ -50,7 +58,6 @@ export default () => {
     cancel();
   });
 
-  console.log(data);
   return (
     <Form
       {...layout}
@@ -59,13 +66,13 @@ export default () => {
       <Form.Item
         name={['user', 'name']}
         label='Name'
-        rules={[{ required: true }]}>
+        rules={[{ type: 'string', required: true, min: 1, max: 50 }]}>
         <Input />
       </Form.Item>
       <Form.Item
         name={['user', 'email']}
         label='Email'
-        rules={[{ type: 'email', required: true }]}>
+        rules={[{ type: 'email', min: 1, max: 50, required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item
