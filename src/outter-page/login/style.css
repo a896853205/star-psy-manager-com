@@ -1,0 +1,97 @@
+.index-box {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgb(230, 230, 230); */
+  background-image: url('/login-background.png');
+  background-position-x: right;
+  background-repeat: no-repeat;
+}
+
+.index-inner-box {
+  width: calc(350px + 400px);
+  display: flex;
+  box-shadow: 0 0 30px #999;
+  background: rgba(0, 0, 0, 0);
+}
+
+.left-box {
+  background: #fff;
+  width: 350px;
+  padding: 30px 40px;
+}
+
+.logo {
+  color: #40a9ff;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.logo-span {
+  color: #000;
+  padding-left: 5px;
+}
+
+.nav {
+  color: #666;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.unfocus {
+  color: rgb(170, 170, 190);
+}
+
+.button {
+  border: 0;
+  background: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.performance {
+  margin-top: 20px;
+  list-style: none;
+  padding-left: 0;
+  color: #666;
+}
+
+.performance .performance-li {
+  padding: 5px 0;
+}
+
+.performance-li-span {
+  padding-left: 5px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.right-box {
+  overflow: hidden;
+  background-color: #ffffff;
+  background-image: url('/login-background.png');
+  background-size: auto 400px;
+  background-position-x: right;
+  position: relative;
+  width: 400px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.main-describe {
+  font-size: 42px;
+  margin-bottom: 0;
+}
+
+.sub-describe {
+  margin-top: 5px;
+}
