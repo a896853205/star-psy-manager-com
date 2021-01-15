@@ -5,9 +5,9 @@ import { createBrowserHistory } from 'history';
  * @param config
  */
 export const requestLog = (config: any) => {
-  console.log('Request <<<<<<<<<<<<<<<<<<<<<<<');
+  console.log("Request <<<<<<<<<<<<<<<<<<<<<<<");
   console.dir(config);
-  console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 };
 
 /**
@@ -15,9 +15,9 @@ export const requestLog = (config: any) => {
  * @param response
  */
 export const responseLog = (response: any) => {
-  console.log('Response >>>>>>>>>>>>>>>>>>>>>>');
+  console.log("Response >>>>>>>>>>>>>>>>>>>>>>");
   console.dir(response);
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 };
 
 // TODO: 401 拦截器
