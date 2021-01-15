@@ -1,4 +1,4 @@
-import * as DominConfigs from "./domin-constants";
+import * as DominConfigs from './domin-constants';
 
 /**
  * 系统前端错误日志
