@@ -18,6 +18,7 @@
     "antd": "^4.6.6",
     "axios": "^0.20.0",
     "cross-env": "^7.0.2",
+    "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-config": "^5.1.1",

@@ -9,6 +9,7 @@ const config: RouteConfig[] = [
   {
     path: '/',
     component: Login,
+    exact: true,
   },
   {
     path: '/home',
@@ -20,12 +21,12 @@ const config: RouteConfig[] = [
       //   exact: true,
       // },
       {
-        path: '/userList',
+        path: '/home/userList',
         component: UserList,
         exact: true,
       },
       {
-        path: '/createUser',
+        path: '/home/createUser',
         component: CreateUser,
         exact: true,
       },
