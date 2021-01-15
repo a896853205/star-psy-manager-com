@@ -1,19 +1,20 @@
-import { ENVIRONMENT } from './app-constants';
-import { SAP_CONTROL } from '../config/app-config';
+import { ENVIRONMENT } from "./app-constants";
+import { SAP_CONTROL } from "../config/app-config";
 
 /** 域名 */
 const _DOMAIN = {
-  [ENVIRONMENT.DEV]: 'http://localhost:4000',
-  [ENVIRONMENT.TEST]: 'http://localhost:4000',
-  [ENVIRONMENT.PRO]: 'http://39.97.175.30:4000',
+  [ENVIRONMENT.DEV]: "http://localhost:7001",
+  [ENVIRONMENT.TEST]: "http://localhost:4000",
+  [ENVIRONMENT.PRO]: "http://39.97.175.30:4000",
 };
 
 export const DOMAIN = _DOMAIN[SAP_CONTROL];
 
 // 模块
 export const PART = {
-  OPT_SYS: '/sys',
-  OPT_USER: '/user',
+  OPT_SYS: "/sys",
+  OPT_USER: "/user",
+  OPT_AUTHORTION: "/authortion", // 用户登录
 };
 
 // 返回码
