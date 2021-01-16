@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
-export default () => {
-  return <>反馈页</>;
-};
+const Feedback = lazy(() => import('./components/container'));
+
+// 整体组件逻辑,lazy等等.
+export default () => <Feedback />;
