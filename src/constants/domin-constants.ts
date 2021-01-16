@@ -24,5 +24,6 @@ export const RESPONSE_CODE = {
   noContent: 204,
   error: 400,
   unauthorized: 401,
+  unFind: 404,
   serviceError: 500,
 };

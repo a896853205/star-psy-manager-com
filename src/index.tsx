@@ -7,7 +7,12 @@ import { renderRoutes } from 'react-router-config';
 import { UseRequestProvider } from 'ahooks';
 import axios from 'axios';
 
-import { requestLog, responseLog } from './util/axios-interceptors';
+import {
+  requestLog,
+  responseLog,
+  responseSuccessMessage,
+  responseErrorMessage,
+} from './util/axios-interceptors';
 import * as APIS from './constants/api-constants';
 import { ErrorBoundary } from './components/Error-boundary/Error-boundary';
 import './index.css';
@@ -29,9 +34,11 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     responseLog(response);
+    responseSuccessMessage(response);
     return response;
   },
   function (error) {
+    responseErrorMessage(error);
     return Promise.reject(error);
   }
 );
@@ -41,7 +48,8 @@ ReactDOM.render(
     <UseRequestProvider
       value={{
         requestMethod: param => axios(param),
-      }}>
+      }}
+    >
       <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
     </UseRequestProvider>
   </ErrorBoundary>,
