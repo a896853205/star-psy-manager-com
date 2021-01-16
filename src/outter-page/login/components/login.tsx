@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useRequest, useUnmount } from 'ahooks';
 import { Input, Form, Button, message } from 'antd';
@@ -10,6 +11,8 @@ import '../style.css';
 import * as APIS from 'src/constants/api-constants';
 
 export default () => {
+  const history = useHistory();
+
   let { loading, run, cancel } = useRequest(
     data => {
       let { password } = data;
@@ -30,7 +33,7 @@ export default () => {
         if (token) {
           // 添加全局请求头token
           axios.defaults.headers.common['Authorization'] = token;
-          message.info('登录成功');
+          history.push('/home/feedback');
         } else {
           message.error('登录失败');
         }

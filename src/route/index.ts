@@ -2,8 +2,8 @@ import { RouteConfig } from 'react-router-config';
 
 import Home from 'src/outter-page/home';
 import Login from 'src/outter-page/login';
-import UserList from 'src/page/user-list';
-import CreateUser from 'src/page/create-user';
+import Description from 'src/page/description';
+import Feedback from 'src/page/feedback';
 
 const config: RouteConfig[] = [
   {
@@ -21,13 +21,13 @@ const config: RouteConfig[] = [
       //   exact: true,
       // },
       {
-        path: '/home/userList',
-        component: UserList,
+        path: '/home/feedback',
+        component: Feedback,
         exact: true,
       },
       {
-        path: '/home/createUser',
-        component: CreateUser,
+        path: '/home/description',
+        component: Description,
         exact: true,
       },
     ],
