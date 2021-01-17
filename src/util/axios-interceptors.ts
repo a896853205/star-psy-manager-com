@@ -1,4 +1,4 @@
-// import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from 'history';
 import * as DominConfigs from '../constants/domin-constants';
 import { message } from 'antd';
 
@@ -22,6 +22,10 @@ export const responseLog = (response: any) => {
   console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 };
 
+/**
+ * 响应成功回调显示对应msg
+ * @param response 响应
+ */
 export const responseSuccessMessage = (response: any) => {
   const { msg } = response.data;
   response.data = response.data.mainData;
@@ -44,9 +48,16 @@ export const responseSuccessMessage = (response: any) => {
   }
 };
 
-// TODO: 401 拦截器
-// history = createBrowserHistory(); history.push('/')
+/**
+ * 响应错误时显示对应msg
+ * @param error 错误
+ */
 export const responseErrorMessage = (error: any) => {
+  if (!error.response) {
+    message.error('网络错误,请稍后再试');
+    return;
+  }
+
   const errorStatus = error.response.status;
   const { msg } = error.response.data;
 
@@ -57,7 +68,9 @@ export const responseErrorMessage = (error: any) => {
     }
   } else if (errorStatus === DominConfigs.RESPONSE_CODE.unauthorized) {
     // 客户端请求失败401
-    message.error('请进行身份验证！');
+    const history = createBrowserHistory();
+    history.push('/');
+    message.warning('身份认证失效,请重新登录');
   } else if (errorStatus === DominConfigs.RESPONSE_CODE.unFind) {
     // 客户端请求失败404
     if (msg) {
