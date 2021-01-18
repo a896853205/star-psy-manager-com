@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react';
-// import { useLocation } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { matchPath } from 'react-router';
+import { useLocation, useHistory } from 'react-router-dom';
 import { renderRoutes, RouteConfigComponentProps } from 'react-router-config';
 
 import { Layout } from 'antd';
@@ -26,15 +27,37 @@ export default ({ route }: RouteConfigComponentProps) => {
   // 逻辑是用useLocation, useEffect, 判断useLocalStorage,
   // 如果空useHistory走到login页
   // 非空没事
+  const useAuthGuide = () => {
+    const history = useHistory();
+    const location = useLocation();
+    const { pathname } = location;
+    useEffect(() => {
+      const isLogin = localStorage.getItem('Authorization');
+      if (
+        matchPath(pathname, {
+          path: '/home/*',
+          exact: true,
+          strict: true,
+        })
+      ) {
+        if (!isLogin) {
+          // 未登录->登录
+          history.push('/');
+        }
+      }
+    });
+  };
+
+  useAuthGuide();
 
   return (
     <Layout>
-      <Sider theme='light' className='home-sider'>
+      <Sider theme="light" className="home-sider">
         <AntdRouterMenu menuData={MENU_DATA} />
       </Sider>
-      <div className='home-content-box'>
+      <div className="home-content-box">
         <Suspense fallback={<PageLoading />}>
-          <Content className='home-content'>
+          <Content className="home-content">
             {renderRoutes(route?.routes)}
           </Content>
         </Suspense>

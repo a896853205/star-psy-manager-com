@@ -37,6 +37,7 @@ export default () => {
 
         if (token) {
           // 添加全局请求头token
+          localStorage.setItem('Authorization', token);
           axios.defaults.headers.common['Authorization'] = token;
           history.push('/home/feedback');
         }

@@ -4,6 +4,7 @@ import Home from 'src/outter-page/home';
 import Login from 'src/outter-page/login';
 import Description from 'src/page/description';
 import Feedback from 'src/page/feedback';
+import UnFined from 'src/page/unfined';
 
 const config: RouteConfig[] = [
   {
@@ -15,11 +16,6 @@ const config: RouteConfig[] = [
     path: '/home',
     component: Home,
     routes: [
-      // {
-      //   path: '/',
-      //   component: Home,
-      //   exact: true,
-      // },
       {
         path: '/home/feedback',
         component: Feedback,
@@ -31,6 +27,11 @@ const config: RouteConfig[] = [
         exact: true,
       },
     ],
+  },
+  // TODO: 非法404
+  {
+    path: '*',
+    component: UnFined,
   },
 ];
 
