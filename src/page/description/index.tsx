@@ -3,7 +3,7 @@ import React from 'react';
 import { Select, Form, Button, Typography } from 'antd';
 
 const { Option } = Select;
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export default () => {
   return (
@@ -12,7 +12,7 @@ export default () => {
         <Form.Item label='太阳星座'>
           <Select defaultValue='lucy' style={{ width: 120 }}>
             <Option value='jack'>Jack</Option>
-            <Option value='lucy'>Lucy</Option>
+            <Option value='lucy'>巨蟹</Option>
             <Option value='disabled' disabled>
               Disabled
             </Option>
@@ -22,7 +22,7 @@ export default () => {
         <Form.Item label='月亮星座'>
           <Select defaultValue='lucy' style={{ width: 120 }}>
             <Option value='jack'>Jack</Option>
-            <Option value='lucy'>Lucy</Option>
+            <Option value='lucy'>处女</Option>
             <Option value='disabled' disabled>
               Disabled
             </Option>

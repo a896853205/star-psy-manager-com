@@ -16,8 +16,8 @@ export default () => {
   let { loading, run, cancel } = useRequest(
     data => {
       let { password } = data;
+      // FIXME: 用antd自带的判断逻辑
       if (password === undefined || password === '') {
-        console.log('用户名为空');
         message.error('用户名为空，请输入密码');
         return;
       }

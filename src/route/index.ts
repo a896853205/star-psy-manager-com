@@ -4,7 +4,7 @@ import Home from 'src/outter-page/home';
 import Login from 'src/outter-page/login';
 import Description from 'src/page/description';
 import Feedback from 'src/page/feedback';
-import UnFined from 'src/page/unfined';
+import Unmatch from 'src/page/unmatch';
 
 const config: RouteConfig[] = [
   {
@@ -26,12 +26,15 @@ const config: RouteConfig[] = [
         component: Description,
         exact: true,
       },
+      {
+        path: '/home/*',
+        component: Unmatch,
+      },
     ],
   },
-  // TODO: 非法404
   {
     path: '*',
-    component: UnFined,
+    component: Unmatch,
   },
 ];
 

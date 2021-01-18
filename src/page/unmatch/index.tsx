@@ -1,8 +1,10 @@
 import React from 'react';
 import { Result, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-const Unfined = () => {
+
+const Unmatch = () => {
   const history = useHistory();
+  
   return (
     <Result
       status="404"
@@ -22,4 +24,4 @@ const Unfined = () => {
   );
 };
 
-export default Unfined;
+export default Unmatch;
