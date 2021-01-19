@@ -1,36 +1,98 @@
 import React from 'react';
 
 import { Select, Form, Button, Typography } from 'antd';
+import { useRequest } from 'ahooks';
 
 const { Option } = Select;
 const { Title } = Typography;
 
+const SIGN_OPTIONS = [
+  {
+    value: 1,
+    name: '白羊',
+  },
+  {
+    value: 2,
+    name: '金牛',
+  },
+  {
+    value: 3,
+    name: '双子',
+  },
+  {
+    value: 4,
+    name: '巨蟹',
+  },
+  {
+    value: 5,
+    name: '狮子',
+  },
+  {
+    value: 6,
+    name: '处女',
+  },
+  {
+    value: 7,
+    name: '天秤',
+  },
+  {
+    value: 8,
+    name: '天蝎',
+  },
+  {
+    value: 9,
+    name: '射手',
+  },
+  {
+    value: 10,
+    name: '摩羯',
+  },
+  {
+    value: 11,
+    name: '水瓶',
+  },
+  {
+    value: 12,
+    name: '双鱼',
+  },
+];
+
 export default () => {
   return (
     <>
-      <Form layout='inline' style={{ marginBottom: 20 }}>
-        <Form.Item label='太阳星座'>
-          <Select defaultValue='lucy' style={{ width: 120 }}>
-            <Option value='jack'>Jack</Option>
-            <Option value='lucy'>巨蟹</Option>
-            <Option value='disabled' disabled>
-              Disabled
-            </Option>
-            <Option value='Yiminghe'>yiminghe</Option>
+      <Form
+        layout='inline'
+        style={{ marginBottom: 20 }}
+        // onFinish={value => }
+        >
+        <Form.Item
+          label='太阳星座'
+          name='sunSign'
+          rules={[{ required: true, message: '请选择太阳星座!' }]}>
+          <Select style={{ width: 120 }} placeholder='请选择'>
+            {SIGN_OPTIONS.map(signOption => (
+              <Option value={signOption.value} key={signOption.value}>
+                {signOption.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
-        <Form.Item label='月亮星座'>
-          <Select defaultValue='lucy' style={{ width: 120 }}>
-            <Option value='jack'>Jack</Option>
-            <Option value='lucy'>处女</Option>
-            <Option value='disabled' disabled>
-              Disabled
-            </Option>
-            <Option value='Yiminghe'>yiminghe</Option>
+        <Form.Item
+          label='月亮星座'
+          name='moonSign'
+          rules={[{ required: true, message: '请选择月亮星座!' }]}>
+          <Select style={{ width: 120 }} placeholder='请选择'>
+            {SIGN_OPTIONS.map(signOption => (
+              <Option value={signOption.value} key={signOption.value}>
+                {signOption.name}
+              </Option>
+            ))}
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type='primary'>查找</Button>
+          <Button type='primary' htmlType='submit'>
+            查找
+          </Button>
         </Form.Item>
       </Form>
 
