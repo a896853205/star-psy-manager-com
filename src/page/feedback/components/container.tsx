@@ -1,7 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 
-import { Statistic, Row, Col } from 'antd';
-import { ArrowUpOutlined } from '@ant-design/icons';
 import * as echarts from 'echarts';
 
 const random = () => (Math.random() * 5).toFixed(2);
@@ -246,47 +244,5 @@ export default () => {
     pieChart.setOption(option);
   }, []);
 
-  return (
-    <div>
-      <Row gutter={20} style={{ marginBottom: 10 }}>
-        <Col span={4}>
-          <Statistic
-            title='本日增加数'
-            value={1128}
-            valueStyle={{ color: '#3f8600' }}
-            prefix={<ArrowUpOutlined />}
-          />
-        </Col>
-        <Col span={4}>
-          <Statistic
-            title='最高评价为'
-            valueStyle={{ color: '#3f8600' }}
-            value='4.5'
-            suffix='巨蟹/金牛'
-          />
-        </Col>
-        <Col span={4}>
-          <Statistic
-            title='最低评价为'
-            valueStyle={{ color: '#cf1322' }}
-            value='1.3'
-            suffix='处女/金牛'
-          />
-        </Col>
-        <Col span={4}>
-          <Statistic
-            title='总评价数'
-            value='6325'
-          />
-        </Col>
-        <Col span={4}>
-          <Statistic
-            title='总评价平均数为'
-            value='4.5'
-          />
-        </Col>
-      </Row>
-      <div ref={barRef} style={{ height: 500 }}></div>
-    </div>
-  );
+  return <div ref={barRef} style={{ height: 500 }}></div>;
 };

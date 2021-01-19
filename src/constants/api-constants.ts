@@ -19,3 +19,13 @@ export const CREATE_USER = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_USER}`
  * 用户登录
  */
 export const AUTHORTION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_AUTHORTION}`;
+
+/**
+ * 获取统计数据
+ */
+export const STATISTIC = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_STATISTIC}`;
+
+/**
+ * 获取描述
+ */
+export const DESCRIPTION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_DESCRIPTION}`
