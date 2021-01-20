@@ -10,13 +10,13 @@ export default () => {
     todayIncrease: 0,
     topEvaluation: {
       topEvaluationMark: '0.00',
-      topSunSignName: '',
-      topMoonSignName: '',
+      topSunSignName: '--',
+      topMoonSignName: '--',
     },
     lowEvaluation: {
       lowEvaluationMark: '0.00',
-      lowSunSignName: '',
-      lowMoonSignName: '',
+      lowSunSignName: '--',
+      lowMoonSignName: '--',
     },
     sumEvaluation: '0.00',
     avgEvaluation: '0.00',
