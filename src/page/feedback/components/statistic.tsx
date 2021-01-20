@@ -33,7 +33,7 @@ export default () => {
     {
       manual: false,
       onSuccess: result => {
-        setStaticticData(result.data.statisticData);
+        setStaticticData(result.data);
       },
       onError: () => {
         console.log('onError');
