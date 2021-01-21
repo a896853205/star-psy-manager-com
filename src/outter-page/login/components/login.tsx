@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useRequest, useUnmount } from 'ahooks';
-import { Input, Form, Button, message } from 'antd';
+import { Input, Form, Button } from 'antd';
 import { KeyOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import md5 from 'md5';
@@ -16,12 +16,6 @@ export default () => {
   let { loading, run, cancel } = useRequest(
     data => {
       let { password } = data;
-      // FIXME: 用antd自带的判断逻辑
-      if (password === undefined || password === '') {
-        message.error('用户名为空，请输入密码');
-        return;
-      }
-
       return {
         url: APIS.AUTHORTION,
         method: 'GET',
@@ -53,13 +47,15 @@ export default () => {
 
   return (
     <Form onFinish={values => run(values)}>
-      <Form.Item name="password">
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: '请输入密码!' }]}
+      >
         <Input
           prefix={<KeyOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
           placeholder="密码"
           type="password"
           name="password"
-          className="password"
         />
       </Form.Item>
       <Form.Item>
