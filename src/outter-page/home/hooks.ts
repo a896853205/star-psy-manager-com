@@ -7,13 +7,17 @@ import { useEffect } from 'react';
 export const useAuthGuide = () => {
   const history = useHistory();
   const location = useLocation();
+
   useEffect(() => {
     const auth = axios.defaults.headers.common['Authorization'];
+
     if (!auth) {
       const isLogin = localStorage.getItem('Authorization');
+
       if (!isLogin) {
-        axios.defaults.headers.common['Authorization'] = isLogin;
         history.push('/');
+      } else {
+        axios.defaults.headers.common['Authorization'] = isLogin;
       }
     }
   }, [location, history]);
