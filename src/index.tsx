@@ -15,42 +15,46 @@ import {
 } from './util/axios-interceptors';
 import * as APIS from './constants/api-constants';
 import { ErrorBoundary } from './components/Error-boundary/Error-boundary';
+import History from './components/history';
 import './index.css';
 import routes from './route';
 import * as serviceWorker from './serviceWorker';
 
-// request拦截器
-axios.interceptors.request.use(
-  config => {
-    requestLog(config);
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+const axiosInterceptors = (history: any) => {
+  // request拦截器
+  axios.interceptors.request.use(
+    config => {
+      requestLog(config);
+      return config;
+    },
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
 
-// response拦截器
-axios.interceptors.response.use(
-  response => {
-    responseLog(response);
-    responseSuccessMessage(response);
-    return response;
-  },
-  function (error) {
-    responseErrorMessage(error);
-    return Promise.reject(error);
-  }
-);
+  // response拦截器
+  axios.interceptors.response.use(
+    response => {
+      responseLog(response);
+      responseSuccessMessage(response);
+      return response;
+    },
+    function (error) {
+      responseErrorMessage(error, history);
+      return Promise.reject(error);
+    }
+  );
+};
 
 ReactDOM.render(
   <ErrorBoundary errorUrl={APIS.ERROR_LOG} nodeEnv={process.env.NODE_ENV}>
     <UseRequestProvider
       value={{
         requestMethod: param => axios(param),
-      }}
-    >
-      <BrowserRouter>{renderRoutes(routes)}</BrowserRouter>
+      }}>
+      <BrowserRouter>
+        {renderRoutes(routes)} <History axiosInterceptors={axiosInterceptors} />
+      </BrowserRouter>
     </UseRequestProvider>
   </ErrorBoundary>,
   document.getElementById('root')
