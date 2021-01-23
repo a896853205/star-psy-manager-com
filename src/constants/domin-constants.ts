@@ -16,7 +16,8 @@ export const PART = {
   OPT_USER: '/user',
   OPT_AUTHORTION: '/authortion', // 用户登录
   OPT_STATISTIC: '/statistic',
-  OPT_DESCRIPTION: '/description'
+  OPT_DESCRIPTION: '/description',
+  OPT_CHART: '/chart',
 };
 
 // 返回码
