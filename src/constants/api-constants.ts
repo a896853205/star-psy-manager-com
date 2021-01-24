@@ -34,8 +34,3 @@ export const DESCRIPTION = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_DESCRI
  * 获取图表数据
  */
 export const CHART = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_CHART}`;
-
-/**
- * 更改描述信息
- */
-export const DESCRIPTION_UPDATE = `${DominConfigs.DOMAIN}${DominConfigs.PART.OPT_DESCRIPTION}/update`;
