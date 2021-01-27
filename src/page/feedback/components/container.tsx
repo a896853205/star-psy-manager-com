@@ -4,13 +4,13 @@ import { useRequest, useUnmount } from 'ahooks';
 import * as APIS from 'src/constants/api-constants';
 import * as echarts from 'echarts';
 
-
 export default () => {
   let barRef = useRef<HTMLDivElement>(null);
+  const [pieChart, setPieChart] = useState<echarts.ECharts | null>(null);
   const [chartData, setChartData] = useState([]);
 
   // 获取图表数据
-  let { cancel } = useRequest(
+  let { cancel, run } = useRequest(
     () => {
       return {
         url: APIS.CHART,
@@ -18,22 +18,34 @@ export default () => {
       };
     },
     {
-      manual: false,
+      manual: true,
       onSuccess: result => {
-        console.log('获取的后台chartData:', result.data);
         setChartData(result.data);
         console.log('chartData', result.data);
+        pieChart?.hideLoading()
       },
       onError: () => {
         console.log('onError');
       },
     }
   );
+
+  useEffect(() => {
+    setPieChart(echarts.init(barRef.current as HTMLDivElement));
+  }, []);
+
+  useEffect(() => {
+    if (pieChart) {
+      pieChart.showLoading();
+      run();
+    }
+  }, [pieChart, run]);
+
   useUnmount(() => {
     cancel();
   });
+
   useEffect(() => {
-    let pieChart = echarts.init(barRef.current as HTMLDivElement);
     let option = {
       legend: {},
       tooltip: {
@@ -42,13 +54,14 @@ export default () => {
           type: 'shadow',
         },
         formatter: (params: any) => {
-          let title = '太阳星座：' + params[0].data.sunSign + '<br/>月亮星座：';
+          let title = `太阳星座：${params[0].data.sunSign}<br/>月亮星座：`;
+
           for (let i = 0; i < params.length; i++) {
-            let key = params[i].seriesName;
-            let value = parseInt(params[i].data[key]).toFixed(2);
-            title +=
-              '<br/>' + params[i].marker + params[i].seriesName + ' ：' + value;
+            const key = params[i].seriesName;
+            const value = params[i].data[key];
+            title += `<br/>${params[i].marker}${params[i].seriesName} ： ${value}`;
           }
+
           return title;
         },
       },
@@ -56,16 +69,16 @@ export default () => {
         dimensions: [
           'sunSign',
           '白羊',
-          '金牛',
-          '双子',
-          '巨蟹',
           '狮子',
-          '处女',
-          '天秤',
-          '天蝎',
           '射手',
+          '金牛',
+          '处女',
           '摩羯',
+          '双子',
+          '天秤',
           '水瓶',
+          '巨蟹',
+          '天蝎',
           '双鱼',
         ],
         source: chartData,
@@ -73,11 +86,6 @@ export default () => {
       xAxis: { type: 'category' },
       yAxis: {
         type: 'value',
-        axisLabel: {
-          formatter: function (value: any) {
-            return value.toFixed(2);
-          },
-        },
       },
       // Declare several bar series, each will be mapped
       // to a column of dataset.source by default.
@@ -96,8 +104,15 @@ export default () => {
         { type: 'bar' },
       ],
     };
-    pieChart.setOption(option);
-  }, [chartData]);
 
-  return <div ref={barRef} style={{ height: 500 }}></div>;
+    if (pieChart) pieChart.setOption(option);
+  }, [chartData, pieChart]);
+
+  return (
+    <div
+      ref={barRef}
+      style={{
+        height: 500,
+      }}></div>
+  );
 };
