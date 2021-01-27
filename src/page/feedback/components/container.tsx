@@ -1,17 +1,57 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
+import { useRequest, useUnmount } from 'ahooks';
+import * as APIS from 'src/constants/api-constants';
 import * as echarts from 'echarts';
 
-const random = () => (Math.random() * 5).toFixed(2);
 
 export default () => {
   let barRef = useRef<HTMLDivElement>(null);
+  const [chartData, setChartData] = useState([]);
 
+  // 获取图表数据
+  let { cancel } = useRequest(
+    () => {
+      return {
+        url: APIS.CHART,
+        method: 'GET',
+      };
+    },
+    {
+      manual: false,
+      onSuccess: result => {
+        console.log('获取的后台chartData:', result.data);
+        setChartData(result.data);
+        console.log('chartData', result.data);
+      },
+      onError: () => {
+        console.log('onError');
+      },
+    }
+  );
+  useUnmount(() => {
+    cancel();
+  });
   useEffect(() => {
     let pieChart = echarts.init(barRef.current as HTMLDivElement);
     let option = {
       legend: {},
-      tooltip: {},
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+        },
+        formatter: (params: any) => {
+          let title = '太阳星座：' + params[0].data.sunSign + '<br/>月亮星座：';
+          for (let i = 0; i < params.length; i++) {
+            let key = params[i].seriesName;
+            let value = parseInt(params[i].data[key]).toFixed(2);
+            title +=
+              '<br/>' + params[i].marker + params[i].seriesName + ' ：' + value;
+          }
+          return title;
+        },
+      },
       dataset: {
         dimensions: [
           'sunSign',
@@ -28,206 +68,21 @@ export default () => {
           '水瓶',
           '双鱼',
         ],
-        source: [
-          {
-            sunSign: '白羊',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '金牛',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '双子',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '巨蟹',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '狮子',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '处女',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '天秤',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '天蝎',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '射手',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '摩羯',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '水平',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-          {
-            sunSign: '双鱼',
-            白羊: random(),
-            金牛: random(),
-            双子: random(),
-            巨蟹: random(),
-            狮子: random(),
-            处女: random(),
-            天秤: random(),
-            天蝎: random(),
-            射手: random(),
-            摩羯: random(),
-            水瓶: random(),
-            双鱼: random(),
-          },
-        ],
+        source: chartData,
       },
       xAxis: { type: 'category' },
-      yAxis: {},
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: function (value: any) {
+            return value.toFixed(2);
+          },
+        },
+      },
       // Declare several bar series, each will be mapped
       // to a column of dataset.source by default.
       series: [
-        {
-          type: 'bar',
-          tooltip: {
-            formatter: (param: any) => {
-              return `太阳星座: ${param.name}<br />月亮星座: ${
-                param.seriesName
-              }<br />平均值: <strong>${
-                param.value[param.value.sunSign]
-              }</strong>`;
-            },
-          },
-        },
+        { type: 'bar' },
         { type: 'bar' },
         { type: 'bar' },
         { type: 'bar' },
@@ -242,7 +97,7 @@ export default () => {
       ],
     };
     pieChart.setOption(option);
-  }, []);
+  }, [chartData]);
 
   return <div ref={barRef} style={{ height: 500 }}></div>;
 };
